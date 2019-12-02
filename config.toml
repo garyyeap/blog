@@ -1,0 +1,126 @@
+baseURL = "https://blog.garyyeap.rocks"
+title = "Indecision"
+# for smart copyright line, leave this blank and check [params.copyright]
+copyright = ""
+
+theme = "minimo"
+
+disqusShortname = ""
+googleAnalytics = ""
+
+Paginate = 5
+preserveTaxonomyNames = true
+
+enableRobotsTXT = true # generate robots.txt
+
+# Syntax Highlighting ( https://gohugo.io/content-management/syntax-highlighting/ )
+pygmentsCodefences = true
+
+enableEmoji = true
+
+defaultContentLanguage = "zh"
+defaultContentLanguageInSubdir = true
+disableLanguages = ["en"]
+
+[params.info]
+description = "Personal blog by Gary Yeap."
+title404 = "Nothing's here!"
+
+[params.assets]
+favicon = "favicon.ico"
+#customCSS = ["css/custom.css"]
+#customJS = ["js/custom.js"]
+gopher = "" # used in 404 template ( Generator: https://gopherize.me )
+
+[params.copyright]
+prefix = ""
+holder = "Gary Yeap"
+startYear = "2019"
+suffix = ""
+
+[params.settings]
+# date & time format: https://golang.org/pkg/time/
+dateFormat = "2006, Jan 02"
+listDateFormat = "2006, Jan 02"
+archiveDateFormat = "Jan 02"
+hideEntryNavigation = ["page"] # boolean / array of sections
+hideEntryMeta = ["page"] # boolean / array of sections
+showReadingTime = true
+showLastmod = true
+taxonomyCloudShuffle = true
+accentColor = "#444444"
+hideMainMenu = false
+rtl = false
+
+[params.sidebar]
+enable = true
+
+[params.widgets]
+header = ["breadcrumbs"]
+homepage = ["recent_posts"]
+sidebar = ["about","search","sidebar_menu","taxonomy_cloud"]
+footer = ["social_menu"]
+
+[params.opengraph.facebook]
+admins = [] # array of Facebook IDs
+appID = ""
+pageID = ""
+
+[params.opengraph.twitter]
+page = "" # Twitter page username
+
+[params.seo]
+# Title Separator: - – — · • * ⋆ | ~ « » < >
+titleSeparator = "•"
+
+[params.social]
+email = "contact@garyyeap.com"
+github = "garyyeap"
+linkedin = "garyyeap"
+twitter = "curryyeap"
+
+[params.comments]
+enable = false
+
+# Utterances: https://utteranc.es
+[params.comments.utterances]
+enable = false
+issueTerm = "pathname" # pathname / url / title
+
+[params.comments.utterances.github]
+username = "garyyeap"
+repository = "blog"
+
+[params.search]
+client = "fuse" # algolia / fuse / lunr
+
+[taxonomies]
+author = "authors"
+category = "categories"
+series = "series"
+tag = "tags"
+
+[permalinks]
+page = "/:slug/"
+
+[[menu.main]]
+name = "Repo"
+weight = -10
+identifier = "repository"
+url = "https://github.com/garyyeap/blog"
+
+[blackfriday]
+hrefTargetBlank = true
+
+[languages]
+# edit this block for your own language
+[languages.zh]
+lang = "zh"
+contentDir = "content/chinese"
+languageName = "中文"
+weight = 2
+[languages.en]
+contentDir = "content/english"
+lang = "en"
+languageName = "English"
+weight = 1
