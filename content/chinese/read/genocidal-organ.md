@@ -1,5 +1,5 @@
 ---
-title: "讀書心得: 虐殺器官"
+title: "讀書: 虐殺器官"
 date: 2017-03-13
 draft: false
 categories:

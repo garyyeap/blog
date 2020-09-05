@@ -1,5 +1,5 @@
 ---
-title: "讀書心得: 大話山海經"
+title: "讀書: 大話山海經"
 date: 2020-01-25
 draft: false
 categories:
