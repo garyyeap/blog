@@ -1,5 +1,5 @@
 ---
-title: "讀書: 美麗新世界"
+title: "美麗新世界"
 date: 2020-09-05
 draft: false
 categories:
