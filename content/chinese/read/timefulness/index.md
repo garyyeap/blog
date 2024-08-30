@@ -2,7 +2,6 @@
 title: "地質學家的記時錄"
 date: 2021-08-22
 draft: false
-cover: /read/timefulness.jpg
 categories:
 - 讀書
 tags:
@@ -11,6 +10,7 @@ tags:
 - 科普
 - 地球科學
 ---
+![地質學家的記時錄](timefulness.jpg)
 
 買的時候沒有注意到副標題，以爲是純地質學的科普書，後來才發現內容有涵蓋了氣候變遷，幸好篇幅不大，主要內容還是用地質學來訴說地球歷史
 

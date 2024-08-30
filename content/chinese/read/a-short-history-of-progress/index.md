@@ -7,7 +7,7 @@ categories:
 tags:
 - 歷史
 ---
-![A short history of progress](/zh/read/a-short-history-of-progress.png)
+![失控的進步 — 復活節島的最後一棵樹是怎樣倒下的](a-short-history-of-progress.png)
 
 > 我們來自何處？我們是誰？我們要往何處去？ — Paul Gauguin
 
