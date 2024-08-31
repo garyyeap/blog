@@ -288,7 +288,7 @@ function foo() {
 
 ## 總結
 
-看到這裡可能有個疑問就是，到底那種方式比較好，基本上所有的方式都有其應用的場景，不然 babel 也不會生出那麼多種選項，畢竟沒有必要的話，大家都會比較傾向複雜度越低越好。關於使用情景，Rollp 官方的 babel-plugin 對 babalHelpers 的設定就有說明：
+看到這裡可能有個疑問就是，到底哪種方式比較好，基本上所有的方式都有其應用的場景，不然 babel 也不會生出那麼多種選項，畢竟沒有必要的話，大家都會比較傾向複雜度越低越好。關於使用情景，Rollup 官方的 babel-plugin 對 babalHelpers 的設定就有說明：
 
 
 >  * 'runtime' - you should use this especially when building libraries with Rollup. It has to be used in combination with @babel/plugin-transform-runtime and you should also specify @babel/runtime as dependency of your package. Don't forget to tell Rollup to treat the helpers imported from within the @babel/runtime module as external dependencies when bundling for cjs & es formats. This can be accomplished via regex (external: [/@babel\/runtime/]) or a function (external: id => id.includes('@babel/runtime')). It's important to not only specify external: ['@babel/runtime'] since the helpers are imported from nested paths (e.g @babel/runtime/helpers/get) and Rollup will only exclude modules that match strings exactly.
@@ -296,5 +296,5 @@ function foo() {
 > * 'external' - use this only if you know what you are doing. It will reference helpers on global babelHelpers object. Used in combination with @babel/plugin-external-helpers.
 > * 'inline' - this is not recommended. Helpers will be inserted in each file using this option. This can cause serious code duplication. This is the default Babel behavior as Babel operates on isolated files - however, as Rollup is a bundler and is project-aware (and therefore likely operating across multiple input files), the default of this plugin is "bundled".
 
-簡單來說如果是開發套件的話，比較建議用 `transform-runtime` 方式，如果是開發應用的話，建議用 Rollup 自己提供的 `bundled` 方式，基本上就是把所有 helpers 用成一份，我自己猜測理論上會在應用層加一個 scope 來保證只會套用/影響到應用層。以上就簡單說明，只是現實世界的具體情況會更複雜，之後會再寫一篇開發/載入模組時要注意跟可以優化的事項。
+簡單來說如果是開發套件的話，比較建議用 `transform-runtime` 方式，如果是開發應用的話，建議用 Rollup 自己提供的 `bundled` 方式，基本上就是把所有 `helpers` 用成一份，我自己猜測理論上會在應用層加一個 scope 來保證只會套用/影響到應用層。以上就簡單說明，只是現實世界的具體情況會更複雜，之後會再寫一篇開發/載入模組時要注意跟可以優化的事項。
 
