@@ -20,7 +20,7 @@ enableEmoji = true
 
 defaultContentLanguage = "zh"
 defaultContentLanguageInSubdir = true
-disableLanguages = ["en"]
+# disableLanguages = ["en"]
 
 [params.info]
 description = "Personal blog by Gary Yeap."
