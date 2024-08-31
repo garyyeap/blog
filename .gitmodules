@@ -3,4 +3,4 @@
 	url = git@github.com:garyyeap/minimo.git
 [submodule "public"]
 	path = public
-	url = git@github.com:garyyeap/blog.garyyeap.rocks.git
+	url = git@github.com:garyyeap/blog.garyyeap.com.git
