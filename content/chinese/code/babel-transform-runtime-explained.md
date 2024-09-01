@@ -1,5 +1,5 @@
 ---
-title: "詳解 @babel/plugin-transform-runtime"
+title: "babel transform runtime 詳解"
 date: 2021-04-29
 draft: false
 categories:
