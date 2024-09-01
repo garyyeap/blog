@@ -19,9 +19,9 @@ tags:
 PS： 注意規範中沒有 Marcotask 這名詞，只有 Tasks，但大家好像都約定成俗的稱爲 Marcotask 作爲 Mircotask 的對比，下面跟隨習慣用 Mircotask。
 
 ## Event Loop
-要理解 Event loop 首先要理解的是 Javascript 是個 single thread 語言，被設計成 single thread 原因很容易理解，主要是因爲 JS 其中一個主要功能的是對 DOM 做操作，如果有其它語言經驗的話，應該可以知道有 mulit threads/processes 的語言對文件的 IO 處理有多麻煩，不了解的可以去查一下 `File lock between threads and processes` 關鍵字。Event loop 則是爲了在 single thread 環境下模擬多工而設計出來的解決方案， single thread 的好處是可以讓寫程式變得比較簡單，壞處是只能同時做一件事，舉例來說就像超商只有一個店員，那個店員在微波食物食物時就只能呆等無法做結帳等其它事情，你可能會想不對啊，微波時把食物放進去定好時間後可以做其它事情啊，對，想像微波食物這件事就是一個 `async` 如 `fetch` 的工作，結帳是如 Dom 操作 sync 工作， 店員還是只有一個，但透過一些合理的安排他可以做到類似多工的效果，Event loop 就是設計來這種模擬多工成爲可能。
+要理解 Event loop 首先要理解的是 Javascript 是個 single thread 語言，被設計成 single thread 原因很容易理解，主要是因爲 JS 其中一個主要功能的是對 DOM 做操作，如果有其它語言經驗的話，應該可以知道有 mulit threads/processes 的語言對文件的 IO 處理有多麻煩，不了解的可以去查一下 `File lock between threads and processes` 關鍵字。Event loop 則是爲了在 single thread 環境下模擬多工而設計出來的解決方案， single thread 的好處是可以讓寫程式變得比較簡單，壞處是只能同時做一件事，舉例來說就像超商只有一個店員，那個店員在微波食物食物時就只能呆等無法做結帳等其它事情，你可能會想不對啊，微波時把食物放進去定好時間後可以做其它事情啊，對，想像微波食物這件事就是一個 `async` 如 `fetch` 的工作，結帳是如 DOM 操作 sync 工作， 店員還是只有一個，但透過一些合理的安排他可以做到類似多工的效果，Event loop 就是設計來這種模擬多工成爲可能。
 
-要理解 Event loop 是怎麼設計的首先要先理解瀏覽器是怎麼運作的，瀏覽器顯示畫面的步驟如下圖([Source](https://web.dev/articles/rendering-performance))：
+瀏覽器顯示畫面的步驟如下圖([Source](https://web.dev/articles/rendering-performance))：
 ![Browsers rendering pipeline](rendering-pipeline.png)
 
 這邊要注意的就只有第一個步驟，也就是 Javascript，其它的需要另開文章才能講完，以下會把其餘步驟簡稱爲 Rendering。Event loop 說穿了就是把工作碎片化，主要是不要被不是 JS 做的工作擋住，例如下載等其實是讓瀏覽器的其它 Thread 做的，所以在趁下載時 JS 就可以做其它工作，而不是一直再等其它 Thread 做完才能動，但是這是假多工，所以如果當其中一個 task 耗費太多資源時(例如無限迴圈)還是會擋住其它工作。
@@ -86,9 +86,12 @@ console.log(9);
 
 ![Event loop flow chart](life-of-a-frame.webp)
 
-* `requestIdleCallback`(rAF) 較具體的執行時間點([Source](https://developer.chrome.com/blog/using-requestidlecallback))：
+* `requestIdleCallback` 較具體的執行時間點([Source](https://developer.chrome.com/blog/using-requestidlecallback))：
 
 ![Event loop flow chart](a-typical-frame.jpg)
+
+### UI thread 和 JS thread
+UI thread 和 JS thread 雖然是各自獨立的 thread，UI 更新時 JS 並不會執行，相對的 JS 在執行時 UI thread 也不會做 render。這樣可以避免例如 UI 在更新時 JS 修改 DOM 導致無法預測的衝突發生。
 
 ### Fetch
 上面說了 Network 另一個 thread，所以 XMLHttpRequest 是 Marcotask，但 fetch 用的是 Promise，也就是 Microatsk，這看起來很衝突對吧？但其實可以理解爲 fetch 只是對 XMLHttpRequest 的包裝，針對 XMLHttpRequest 的回傳是 Marcotask 沒錯，只是從中再回傳一個 Promise。可以參考常見的 Polyfill 來理解([Source](https://medium.com/@sohammehta56/javascript-fetch-method-and-its-implementation-fetch-polyfill-4cfb880949e6))：

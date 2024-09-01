@@ -73,20 +73,20 @@ var sym = Symbol();
 var promise = Promise.resolve();
 ```
 
-但管理這些載入很煩，例如之後沒有要用到 Promise 了，其實拿掉會比較省空間，但改程式時常常就會忘記，甚至忘了 import，造成在本機測沒問題，上線後在較舊的瀏覽器爆炸的問題，於是就有了搭配 `@babel/preset-env` 的方式，其中有個 `useBuiltIns` 的設定，設成 `entry` 的話，Babel 就會根據你設定想要支援的瀏覽器載入該瀏覽器環境缺失的 Polyfill，把
+但管理這些載入很煩，例如之後沒有要用到 Promise 了，其實拿掉會比較省空間，但改程式時常常就會忘記，甚至忘了 import，造成在本機測沒問題，上線後在較舊的瀏覽器爆炸的問題，於是就有了搭配 `@babel/preset-env` 的方式，其中有個 `useBuiltIns` 的設定，設成 `entry` 的話，Babel 就會根據你設定想要支援的瀏覽器載入該瀏覽器環境缺失的 Polyfill，把:
 ```js
 import "core-js";
 ```
-轉成(取決於瀏覽器環境設定)
+轉成(取決於瀏覽器環境設定):
 ```js
 import "core-js/modules/es.string.pad-start";
 import "core-js/modules/es.string.pad-end";
 ```
-設成 `usage` 的話就只會載入該檔案會用到的
+設成 `usage` 的話就只會載入該檔案會用到的:
 ```js
 var a = new Promise();
 ```
-轉成
+轉成:
 ```js
 import 'core-js/es/promise';
 
@@ -104,7 +104,7 @@ var a = new Promise();
 2. [https://babeljs.io/docs/en/babel-polyfill](https://babeljs.io/docs/en/babel-polyfill)
 
 #### Polyfill ES6 局域
-因爲前面全域模式的問題，所以 Babel 提供了另一種模式，需要`@babel/plugin-transform-runtime`搭配`@babel/runtime`來一起用
+因爲前面全域模式的問題，所以 Babel 提供了另一種模式，需要`@babel/plugin-transform-runtime`搭配`@babel/runtime`來一起用:
 
 Babel 設定：
 ```js
@@ -120,7 +120,7 @@ Babel 設定：
 }
 ```
 
-其運作原理就是利用 ES6 的模組特性把 Polyfill 變成局域的變數
+其運作原理就是利用 ES6 的模組特性把 Polyfill 變成局域的變數:
 
 ```js
 var sym = Symbol();
@@ -131,7 +131,7 @@ var check = arr.includes("yeah!");
 
 console.log(arr[Symbol.iterator]());
 ```
-會轉成
+會轉成:
 ```js
 import _getIterator from "@babel/runtime-corejs3/core-js/get-iterator";
 import _includesInstanceProperty from "@babel/runtime-corejs3/core-js-stable/instance/includes";
@@ -155,12 +155,12 @@ console.log(_getIterator(arr));
 
 ## Helper
 
-Helper 基本上就是 Babel 爲了要達成 ES6 的一些語法支援而產生的一些程式，例如 async function
+Helper 基本上就是 Babel 爲了要達成 ES6 的一些語法支援而產生的一些程式，例如 async function:
 
 ```js
 async function abc() {}
 ```
-會轉成
+會轉成:
 ```js
 "use strict";
 
@@ -188,7 +188,7 @@ function _abc() {
 }
 ```
 
-其中 `_asyncToGenerator` 就是 helper，它負責把 abc 這個 function 改成有像 async 一樣的特性/行爲，但這樣的問題是 `_asyncToGenerator` 這個函數在每個用到它的模組都會有一份重複的。這時候 `babel-plugin-transform-runtime` 又要來支援了，在加入後(參考上面Polyfill部分設定)，`transform-runtime` 會把上述程式碼轉換成引入的方式就可以有效減少重複的程式碼
+其中 `_asyncToGenerator` 就是 helper，它負責把 abc 這個 function 改成有像 async 一樣的特性/行爲，但這樣的問題是 `_asyncToGenerator` 這個函數在每個用到它的模組都會有一份重複的。這時候 `babel-plugin-transform-runtime` 又要來支援了，在加入後(參考上面Polyfill部分設定)，`transform-runtime` 會把上述程式碼轉換成引入的方式就可以有效減少重複的程式碼:
 
 ```js
 "use strict";
@@ -223,13 +223,13 @@ function _abc() {
 
 ## Regenerator
 
-這個不想介紹了，請直接參考 MDN。Regenerator 要處理的問題是污染全域的問題
+這個不想介紹了，請直接參考 MDN。Regenerator 要處理的問題是污染全域的問題:
 
 ```js
 function* foo() {}
 ```
 
-會產生
+會產生:
 ```js
 "use strict";
 
@@ -296,5 +296,5 @@ function foo() {
 > * 'external' - use this only if you know what you are doing. It will reference helpers on global babelHelpers object. Used in combination with @babel/plugin-external-helpers.
 > * 'inline' - this is not recommended. Helpers will be inserted in each file using this option. This can cause serious code duplication. This is the default Babel behavior as Babel operates on isolated files - however, as Rollup is a bundler and is project-aware (and therefore likely operating across multiple input files), the default of this plugin is "bundled".
 
-簡單來說如果是開發套件的話，比較建議用 `transform-runtime` 方式，如果是開發應用的話，建議用 Rollup 自己提供的 `bundled` 方式，基本上就是把所有 `helpers` 用成一份，我自己猜測理論上會在應用層加一個 scope 來保證只會套用/影響到應用層。以上就簡單說明，只是現實世界的具體情況會更複雜，之後會再寫一篇開發/載入模組時要注意跟可以優化的事項。
+簡單來說如果是開發套件的話，比較建議用 `transform-runtime` 方式，如果是開發應用的話，建議用 Rollup 自己提供的 `bundled` 方式，基本上就是把所有 `helpers` 用成一份，我自己猜測理論上會在應用層加一個 scope 來保證只會套用/影響到應用層。
 
