@@ -80,11 +80,11 @@ linkedin = "garyyeap"
 twitter = "curryyeap"
 
 [params.comments]
-enable = false
+enable = true
 
 # Utterances: https://utteranc.es
 [params.comments.utterances]
-enable = false
+enable = true
 issueTerm = "pathname" # pathname / url / title
 
 [params.comments.utterances.github]
@@ -103,11 +103,11 @@ tag = "tags"
 [permalinks]
 page = "/:slug/"
 
-[[menu.main]]
-name = "Repo"
-weight = -10
-identifier = "repository"
-url = "https://github.com/garyyeap/blog"
+# [[menu.main]]
+# name = "Repo"
+# weight = -10
+# identifier = "repository"
+# url = "https://github.com/garyyeap/blog"
 
 [blackfriday]
 hrefTargetBlank = true
